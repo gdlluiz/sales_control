@@ -1,0 +1,107 @@
+
+
+caso uso
+
+
+
+*********************** compa de producto ***********************
+
+*								*				
+
+*	cliente busca producto					*
+
+*	cliente busca modelo					*
+
+*	cliente busca talla					*
+
+*								*
+
+*								*
+
+*	empleado muestra modelo a cliente			*
+
+*	empleado muestra talla a cliente			*
+
+*								*
+
+*	cliente elige producto					*
+
+*	cliente paga producto					*
+
+*								*
+
+*	sistema actualiza inventario				*
+
+*	sistema genera ticket de venta				*
+
+*								*
+
+*	empleado recibe pago por producto			*	
+
+*	empleado entrega ticket de venta a cliente		*
+
+*	empleado entrega mercancia a cliente			*
+
+*								*
+
+*****************************************************************
+
+
+
+
+
+*************************** Garantia ****************************
+
+*								*
+
+*								*
+
+*	cliente regresa producto a empleado 			*
+
+*	cliente muestra ticket de venta a empleado		*
+
+*	cliente da motivo de garantia a empleado		*
+
+*								*
+
+*	empleado verifica producto				*
+
+*	empleado comprueba ticket de venta			*
+
+*	empleado genera  reporte de garantia			*
+
+*	empleado cambia producto a cliente			*
+
+*								*
+
+*	sistema actualiza inventario				*
+
+*	sistema genera reporte diario de garantias		*
+
+*								*							*
+
+*****************************************************************
+
+
+
+************************** Nuevo inventario *********************
+
+*								*
+
+*								*
+
+*	empleado ingresa tipo de producto			*
+
+*	empleado ingresa modelo					*
+
+*	empleado ingresa cantidad				*
+
+*								*
+
+*	sistema actualiza inventario				*
+
+*								*
+
+*****************************************************************
+
+
