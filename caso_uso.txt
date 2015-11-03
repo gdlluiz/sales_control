@@ -1,107 +1,54 @@
+#Ingenieria de Software control de inventario.
+
+Planteamiento del problema:
 
 
-caso uso
+El almacenista Registra entradas y las salidas de mercancía de forma manual
+en un libro de inventarios del negocio.
+El almacenista invierte muchas horas de trabajo para registrar las entradas
+de producto en el libro de inventarios y poder calcular el total de cada
+producto,  de la misma forma invierte muchas horas de trabajo para registrar
+las salidas de cada producto y calcular al final de la jornada el total
+de existencias.
+A ese tiempo que utiliza el almacenista, se le agrega  el tiempo que tiene
+que usar el mismo para comparar y verificar el registro de inventarios,
+con el inventario físico. 
 
 
+Objetivo
 
-*********************** compa de producto ***********************
+Realizar software  que permita manejar de una forma eficiente el proceso de
+registrar entradas y salidas así, como actualizar las existencias de forma
+automática, permitiendo así poder  disminuir el tiempo que destina el almacenista
+en registrar entradas y salidas  mercancía dentro del inventario de almacén.
 
-*								*				
 
-*	cliente busca producto					*
-
-*	cliente busca modelo					*
-
-*	cliente busca talla					*
-
-*								*
-
-*								*
-
-*	empleado muestra modelo a cliente			*
-
-*	empleado muestra talla a cliente			*
-
-*								*
-
-*	cliente elige producto					*
-
-*	cliente paga producto					*
-
-*								*
-
-*	sistema actualiza inventario				*
-
-*	sistema genera ticket de venta				*
-
-*								*
-
-*	empleado recibe pago por producto			*	
-
-*	empleado entrega ticket de venta a cliente		*
-
-*	empleado entrega mercancia a cliente			*
-
-*								*
-
-*****************************************************************
+Requerimientos
 
 
 
+Numero	Requerimiento					Descripción						Prioridad
 
+R1	El almacenista podrá llenar un formato		El sistema recibirá el formato y actualizara 		1
+	de entrada de producto				la existencia en el inventario.	
 
-*************************** Garantia ****************************
+R2	El almacenista podrá llenar un formato 		El sistema recibirá el formato y actualizara 		1
+	de salida de producto.				la existencia en el inventario.
 
-*								*
+R3	El almacenista pueda solicitar un listado 	El sistema generara un reporte con un listado 		2
+	de existencias de productos.			de los productos y su existencias.
 
-*								*
+R4	El almacenista pueda determinar una 		El sistema relacionara el mínimo de existencia 		3 
+	existencia mínima para cada producto		con cada producto.
+	en inventario
 
-*	cliente regresa producto a empleado 			*
+R5	El sistema muestre una alerta cuando un 	El sistema hará una comparación entre la existencia 	1
+	producto alcance una existencia mínima.		de cada producto y el mínimo establecido 	
+							para el mismo.
 
-*	cliente muestra ticket de venta a empleado		*
+R6	El sistema guarde un registro de 		El sistema guardara un Log de cada movimiento		1
+	movimientos.					realizado en el sistema.
 
-*	cliente da motivo de garantia a empleado		*
-
-*								*
-
-*	empleado verifica producto				*
-
-*	empleado comprueba ticket de venta			*
-
-*	empleado genera  reporte de garantia			*
-
-*	empleado cambia producto a cliente			*
-
-*								*
-
-*	sistema actualiza inventario				*
-
-*	sistema genera reporte diario de garantias		*
-
-*								*							*
-
-*****************************************************************
-
-
-
-************************** Nuevo inventario *********************
-
-*								*
-
-*								*
-
-*	empleado ingresa tipo de producto			*
-
-*	empleado ingresa modelo					*
-
-*	empleado ingresa cantidad				*
-
-*								*
-
-*	sistema actualiza inventario				*
-
-*								*
-
-*****************************************************************
-
+R7	El almacenista pueda solicitar 			El sistema generara un reporte de forma ordenada 	3
+	un registro de movimientos.			con cada Log registrado.
 

@@ -1,2 +1,2 @@
 # sales_control
-comieza proyecto control de venta
+comieza proyecto inventario de tienda departamental
