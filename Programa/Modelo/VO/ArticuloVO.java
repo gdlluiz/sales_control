@@ -6,7 +6,7 @@ public class ArticuloVO {
 	private String descripcion;
 	private String marca;
 	private String talla;
-	private int precioCompra;
+	private float precioCompra;
 	private int codigoTipoArticulo;
 	private int codigoProveedor;
 	
@@ -40,10 +40,10 @@ public class ArticuloVO {
 	public void setTalla(String talla) {
 		this.talla = talla;
 	}
-	public int getPrecioCompra() {
+	public float getPrecioCompra() {
 		return precioCompra;
 	}
-	public void setPrecioCompra(int precioCompra) {
+	public void setPrecioCompra(float precioCompra) {
 		this.precioCompra = precioCompra;
 	}
 	public int getCodigoTipoArticulo() {

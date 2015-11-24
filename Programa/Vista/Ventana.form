@@ -189,7 +189,7 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnBorrarEmpleado">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Borrar"/>
+                    <Property name="text" type="java.lang.String" value="Reiniciar"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnIngresarEmpleado">
@@ -341,7 +341,7 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnBorrarProveedor">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Borrar"/>
+                    <Property name="text" type="java.lang.String" value="Reiniciar"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnIngresarProveedor">
@@ -378,13 +378,13 @@
                                   </Group>
                                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtMarcaArticulo" max="32767" attributes="0"/>
+                                      <Component id="txtMarcaArticulo" pref="195" max="32767" attributes="0"/>
                                       <Component id="txtPrecioCompra" max="32767" attributes="0"/>
                                       <Component id="cbxTallaProducto" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                                       <Component id="txtCantidadProducto" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
                                       <Component id="txtMinimoProducto" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
-                                      <Component id="txtProveedorProducto" max="32767" attributes="0"/>
-                                      <Component id="txtNombreProducto" pref="195" max="32767" attributes="0"/>
+                                      <Component id="cbxArticulo" max="32767" attributes="0"/>
+                                      <Component id="cbxProveedores" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
@@ -402,11 +402,17 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtNombreProducto" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="cbxArticulo" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtMarcaArticulo" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -434,14 +440,14 @@
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtProveedorProducto" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
+                              <Component id="cbxProveedores" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnBorrarProducto" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnIngresarProducto" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="23" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -478,7 +484,7 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnBorrarProducto">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Borrar"/>
+                    <Property name="text" type="java.lang.String" value="Reiniciar"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnIngresarProducto">
@@ -507,9 +513,19 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtMinimoProducto">
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtProveedorProducto">
+                <Component class="javax.swing.JComboBox" name="cbxArticulo">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
+                    </Property>
+                  </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtNombreProducto">
+                <Component class="javax.swing.JComboBox" name="cbxProveedores">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="0"/>
+                    </Property>
+                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
@@ -699,7 +715,7 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnBorrarBusqueda">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Borrar"/>
+                    <Property name="text" type="java.lang.String" value="Reiniciar"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnBuscarInventario">
@@ -746,7 +762,7 @@
                                   <Component id="btnSalidaArticulo" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="270" max="32767" attributes="0"/>
+                          <EmptySpace pref="260" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -815,7 +831,7 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnClearArticulo">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Borrar"/>
+                    <Property name="text" type="java.lang.String" value="Reiniciar"/>
                   </Properties>
                 </Component>
               </SubComponents>

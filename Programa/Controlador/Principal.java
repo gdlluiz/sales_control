@@ -2,22 +2,23 @@ package Controlador;
 
 
 
-import Modelo.DAO.EmpleadoDAO;
+import Modelo.Logica;
+import Vista.Ventana;
 
 public class Principal {
 
 	public static void main(String[] args) {
 		// Se declara  las Clase con mis metodos
-            EmpleadoDAO empleado;
-            
+            Logica miLogica;
+            Ventana ventana;
             // se crea el Objeto
             
-            empleado = new EmpleadoDAO();
-            
+            miLogica = new Logica();
+            ventana = new Ventana();
 		
             // Mando a llamar los metodos
-            empleado.manejaVista();
-		
+            miLogica.manejaVista();
+           // ventana.cargaProveedores();
 		
 		
 		

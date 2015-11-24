@@ -5,17 +5,21 @@
  */
 package Vista;
 
-import Controlador.Coordinador;
+
 import Modelo.ConexionBD;
-import java.awt.event.ActionEvent;
+import Modelo.Logica;
+
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
+
 import javax.swing.JTextField;
 
 /**
@@ -23,14 +27,23 @@ import javax.swing.JTextField;
  * @author Luiz
  */
 public class Ventana extends javax.swing.JFrame {
-    private Coordinador miCoordinador;
+    Logica logica;
     Connection conecta;
    
    
     public Ventana() {
         
         initComponents();
-        cargarCiudades();
+        cargarCbx();
+        cargaProveedores();
+    }
+
+    public JComboBox getCbxProveedores() {
+        return cbxProveedores;
+    }
+
+    public void setCbxProveedores(JComboBox cbxProveedores) {
+        this.cbxProveedores = cbxProveedores;
     }
 
     public JButton getBtnBorrarBusqueda() {
@@ -218,12 +231,12 @@ public class Ventana extends javax.swing.JFrame {
         this.txtNombreEmpleado = txtNombreEmpleado;
     }
 
-    public JTextField getTxtNombreProducto() {
-        return txtNombreProducto;
+    public JComboBox getCbxArticulo() {
+        return cbxArticulo;
     }
 
-    public void setTxtNombreProducto(JTextField txtNombreProducto) {
-        this.txtNombreProducto = txtNombreProducto;
+    public void setCbxArticulo(JComboBox cbxArticulo) {
+        this.cbxArticulo = cbxArticulo;
     }
 
     public JTextField getTxtNombreProveedor() {
@@ -282,14 +295,6 @@ public class Ventana extends javax.swing.JFrame {
         this.txtProductoMinimoInventario = txtProductoMinimoInventario;
     }
 
-    public JTextField getTxtProveedorProducto() {
-        return txtProveedorProducto;
-    }
-
-    public void setTxtProveedorProducto(JTextField txtProveedorProducto) {
-        this.txtProveedorProducto = txtProveedorProducto;
-    }
-
     public JTextField getTxtTelefonoEmpleado() {
         return txtTelefonoEmpleado;
     }
@@ -322,12 +327,12 @@ public class Ventana extends javax.swing.JFrame {
         this.cbxTallaProducto = cbxTallaProducto;
     }
 
-    public JComboBox getJcbxCiudadP() {
+    public JComboBox getCbxCiudadP() {
         return cbxCiudadP;
     }
 
-    public void setJcbxCiudadP(JComboBox jcbxCiudadP) {
-        this.cbxCiudadP = jcbxCiudadP;
+    public void setCbxCiudadP(JComboBox cbxCiudadP) {
+        this.cbxCiudadP = cbxCiudadP;
     }
 
     /**
@@ -384,8 +389,8 @@ public class Ventana extends javax.swing.JFrame {
         txtCantidadProducto = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         txtMinimoProducto = new javax.swing.JTextField();
-        txtProveedorProducto = new javax.swing.JTextField();
-        txtNombreProducto = new javax.swing.JTextField();
+        cbxArticulo = new javax.swing.JComboBox();
+        cbxProveedores = new javax.swing.JComboBox();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
@@ -428,7 +433,7 @@ public class Ventana extends javax.swing.JFrame {
 
         jLabel6.setText("Contraseña");
 
-        btnBorrarEmpleado.setText("Borrar");
+        btnBorrarEmpleado.setText("Reiniciar");
 
         btnIngresarEmpleado.setText("Ingresar");
 
@@ -507,7 +512,7 @@ public class Ventana extends javax.swing.JFrame {
 
         jLabel11.setText("Telefono");
 
-        btnBorrarProveedor.setText("Borrar");
+        btnBorrarProveedor.setText("Reiniciar");
 
         btnIngresarProveedor.setText("Ingresar");
 
@@ -586,7 +591,7 @@ public class Ventana extends javax.swing.JFrame {
 
         jLabel16.setText("Proveedor ");
 
-        btnBorrarProducto.setText("Borrar");
+        btnBorrarProducto.setText("Reiniciar");
 
         btnIngresarProducto.setText("Ingresar");
 
@@ -612,13 +617,13 @@ public class Ventana extends javax.swing.JFrame {
                             .addComponent(jLabel16))
                         .addGap(26, 26, 26)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtMarcaArticulo)
+                            .addComponent(txtMarcaArticulo, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                             .addComponent(txtPrecioCompra)
                             .addComponent(cbxTallaProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMinimoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtProveedorProducto)
-                            .addComponent(txtNombreProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)))
+                            .addComponent(cbxArticulo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbxProveedores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(42, 42, 42)
                         .addComponent(btnBorrarProducto)
@@ -630,10 +635,14 @@ public class Ventana extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(txtNombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addGap(0, 11, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(cbxArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(txtMarcaArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -656,12 +665,12 @@ public class Ventana extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
-                    .addComponent(txtProveedorProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrarProducto)
                     .addComponent(btnIngresarProducto))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         jTabbedPane1.addTab("Productos", jPanel4);
@@ -729,7 +738,7 @@ public class Ventana extends javax.swing.JFrame {
 
         rdoProducto.setText("Producto");
 
-        btnBorrarBusqueda.setText("Borrar");
+        btnBorrarBusqueda.setText("Reiniciar");
 
         btnBuscarInventario.setText("Buscar");
 
@@ -791,7 +800,7 @@ public class Ventana extends javax.swing.JFrame {
 
         btnSalidaArticulo.setText("Salida");
 
-        btnClearArticulo.setText("Borrar");
+        btnClearArticulo.setText("Reiniciar");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -817,7 +826,7 @@ public class Ventana extends javax.swing.JFrame {
                         .addComponent(btnEntradaArticulo)
                         .addGap(68, 68, 68)
                         .addComponent(btnSalidaArticulo)))
-                .addContainerGap(270, Short.MAX_VALUE))
+                .addContainerGap(260, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -905,8 +914,10 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JButton btnIngresarProducto;
     private javax.swing.JButton btnIngresarProveedor;
     private javax.swing.JButton btnSalidaArticulo;
+    private javax.swing.JComboBox cbxArticulo;
     private javax.swing.JComboBox cbxCiudadE;
     private javax.swing.JComboBox cbxCiudadP;
+    private javax.swing.JComboBox cbxProveedores;
     private javax.swing.JComboBox cbxTallaProducto;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -957,7 +968,6 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JTextField txtMinimoProducto;
     private javax.swing.JTextField txtNombreCompania;
     private javax.swing.JTextField txtNombreEmpleado;
-    private javax.swing.JTextField txtNombreProducto;
     private javax.swing.JTextField txtNombreProveedor;
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtPoductoIdInventario;
@@ -965,13 +975,12 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JTextField txtProductoExistenciaInventario;
     private javax.swing.JTextField txtProductoInventario;
     private javax.swing.JTextField txtProductoMinimoInventario;
-    private javax.swing.JTextField txtProveedorProducto;
     private javax.swing.JTextField txtTelefonoEmpleado;
     private javax.swing.JTextField txtTelefonoProveedor;
     // End of variables declaration//GEN-END:variables
 
-    
-   public void cargarCiudades(){
+    // Limpia y genera lista de LosComboBox
+   public void cargarCbx(){
        
             cbxCiudadE.removeAllItems();
             cbxCiudadE.addItem("");
@@ -1005,10 +1014,59 @@ public class Ventana extends javax.swing.JFrame {
             
             cbxTallaProducto.removeAllItems();
             cbxTallaProducto.addItem("");
-            cbxTallaProducto.addItem("S");
-            cbxTallaProducto.addItem("M");
-            cbxTallaProducto.addItem("L");
-            cbxTallaProducto.addItem("XL");
+            cbxTallaProducto.addItem("2");
+            cbxTallaProducto.addItem("3");
+            cbxTallaProducto.addItem("3.5");
+            cbxTallaProducto.addItem("4");
+            cbxTallaProducto.addItem("4.5");
+            cbxTallaProducto.addItem("5");
+            cbxTallaProducto.addItem("5.5");
+            cbxTallaProducto.addItem("6");
+            cbxTallaProducto.addItem("6.5");
+            cbxTallaProducto.addItem("7");
+            cbxTallaProducto.addItem("7.5");
+            cbxTallaProducto.addItem("8");
+            cbxTallaProducto.addItem("8.5");
+            
+            
+            cbxArticulo.removeAllItems();
+            cbxArticulo.addItem("");
+            cbxArticulo.addItem("Bota");
+            cbxArticulo.addItem("Sandalia");
+            cbxArticulo.addItem("Zapato");
+            cbxArticulo.addItem("Tenis");
+            cbxArticulo.addItem("Tacon");
+            
+            
    }
    
+   public void cargaProveedores() {
+        //logica = new Logica();
+        
+        //cbxProveedores.removeAllItems();
+       
+        Conecta();
+        try {
+            
+            String sql ="Select nombreComercial from proovedor;";
+           
+            Statement st= conecta.createStatement();
+            ResultSet rs=st.executeQuery(sql);
+            cbxProveedores.removeAllItems();
+            while(rs.next()){
+                
+                cbxProveedores.addItem(rs.getString(1));
+            }
+               
+        } catch (SQLException ex) {
+            Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+   }
+   
+   public void Conecta(){
+       conecta = ConexionBD.getConexion();
+   }
+
+    
 }

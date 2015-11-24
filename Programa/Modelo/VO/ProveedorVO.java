@@ -8,7 +8,6 @@ public class ProveedorVO {
 	private String apellidoProveedor;
 	private String DireccionProveedor;
 	private String TelefonoProveedor;
-	private String telefono;
 	private int codigoCiudad;
 	
 	
@@ -53,12 +52,7 @@ public class ProveedorVO {
 	public void setTelefonoProveedor(String telefonoProveedor) {
 		TelefonoProveedor = telefonoProveedor;
 	}
-	public String getTelefono() {
-		return telefono;
-	}
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
-	}
+	
 	public int getCodigoCiudad() {
 		return codigoCiudad;
 	}
