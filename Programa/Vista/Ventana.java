@@ -1041,10 +1041,7 @@ public class Ventana extends javax.swing.JFrame {
    }
    
    public void cargaProveedores() {
-        //logica = new Logica();
         
-        //cbxProveedores.removeAllItems();
-       
         Conecta();
         try {
             
@@ -1061,8 +1058,29 @@ public class Ventana extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
         }
-
    }
+   
+   // aqui me quede
+   public void ObtenerIdProvedor(String Nombre) {
+        
+        Conecta();
+        try {
+            
+            String sql ="Select IdProovedor from proovedor where;";
+           
+            Statement st= conecta.createStatement();
+            ResultSet rs=st.executeQuery(sql);
+            cbxProveedores.removeAllItems();
+            while(rs.next()){
+                
+                cbxProveedores.addItem(rs.getString(1));
+            }
+               
+        } catch (SQLException ex) {
+            Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   }
+   
    
    public void Conecta(){
        conecta = ConexionBD.getConexion();

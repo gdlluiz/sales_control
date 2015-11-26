@@ -5,6 +5,7 @@ import Vista.Ventana;
 import Modelo.ConexionBD;
 import Modelo.VO.ArticuloVO;
 import Modelo.VO.EmpleadoVO;
+import Modelo.VO.InventarioVO;
 import Modelo.VO.ProveedorVO;
 import Modelo.VO.TipoArticuloVO;
 import java.awt.event.ActionEvent;
@@ -22,6 +23,7 @@ public class Logica {
     ArticuloVO articulo;
     TipoArticuloVO tipoArticulo;
     Entradas_SAlidasVO entradasSalidas;
+    InventarioVO inventario;
     
     public Logica() {
         
@@ -152,14 +154,20 @@ public class Logica {
             public void actionPerformed(ActionEvent e){  
                 //Creo el Objeto Producto
                 articulo = new ArticuloVO();
+                inventario = new InventarioVO();
                 String aux;
+                int codigo =0;
                 //paso los datos en la ventana a el objeto Articulo
                 articulo.setDescripcion(principal.getCbxArticulo().getSelectedItem().toString());
                 articulo.setMarca(principal.getTxtMarcaArticulo().getText());
                 articulo.setTalla(principal.getCbxTallaProducto().getSelectedItem().toString());
                 aux = principal.getTxtPrecioCompra().toString();
                 articulo.setPrecioCompra(Float.parseFloat(aux));
-                articulo.setCodigoTipoArticulo(ObtenerIdArticulo(articulo.getDescripcion()));
+                codigo =ObtenerIdArticulo(articulo.getDescripcion());
+                articulo.setCodigoTipoArticulo(codigo);
+                inventario.setCodArticulo(codigo);
+                inventario.setExistencia(Integer.parseInt(principal.getTxtProductoExistenciaInventario().toString()));
+                inventario.setStockMinimo(Integer.parseInt(principal.getTxtProductoMinimoInventario().toString()));
                 
             }
         });
