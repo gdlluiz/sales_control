@@ -5,6 +5,7 @@ import Vista.Ventana;
 import Modelo.ConexionBD;
 import Modelo.VO.ArticuloVO;
 import Modelo.VO.EmpleadoVO;
+import Modelo.VO.Entradas_SalidasVO;
 import Modelo.VO.InventarioVO;
 import Modelo.VO.ProveedorVO;
 import Modelo.VO.TipoArticuloVO;
@@ -22,7 +23,7 @@ public class Logica {
     ProveedorVO proveedor;
     ArticuloVO articulo;
     TipoArticuloVO tipoArticulo;
-    Entradas_SAlidasVO entradasSalidas;
+    Entradas_SalidasVO entradasSalidas;
     InventarioVO inventario;
     
     public Logica() {
@@ -128,7 +129,7 @@ public class Logica {
                     //limpiamos los datos Guardados
                     limpiarProveedor();
                 }catch(Exception ex){
-                        JOptionPane.showMessageDialog(null,"error"+ ex);
+                        JOptionPane.showMessageDialog(null,"error: "+ ex);
                 }
                 
             }
@@ -147,27 +148,87 @@ public class Logica {
         
         // Botones Articulo
         
-        
+       
         this.principal.getBtnIngresarProducto().addActionListener(new ActionListener(){
             
             @Override
             public void actionPerformed(ActionEvent e){  
-                //Creo el Objeto Producto
+                //Creo los Objetos Articulo, inventario y tipo de articulo
                 articulo = new ArticuloVO();
+                tipoArticulo = new TipoArticuloVO();
                 inventario = new InventarioVO();
-                String aux;
-                int codigo =0;
+                entradasSalidas = new Entradas_SalidasVO();
+                float aux;                
+                int idProveedor =0;
+                int idAr=0;
+                int minimo=0, existencia= 0;
+                                
                 //paso los datos en la ventana a el objeto Articulo
-                articulo.setDescripcion(principal.getCbxArticulo().getSelectedItem().toString());
+                tipoArticulo.setTipo(principal.getCbxArticulo().getSelectedItem().toString());
+                idAr = ObtenerIdArticulo(tipoArticulo.getTipo());
+                articulo.setDescripcion(principal.getTxtProductoDescripcion().getText());
                 articulo.setMarca(principal.getTxtMarcaArticulo().getText());
                 articulo.setTalla(principal.getCbxTallaProducto().getSelectedItem().toString());
-                aux = principal.getTxtPrecioCompra().toString();
-                articulo.setPrecioCompra(Float.parseFloat(aux));
-                codigo =ObtenerIdArticulo(articulo.getDescripcion());
-                articulo.setCodigoTipoArticulo(codigo);
-                inventario.setCodArticulo(codigo);
-                inventario.setExistencia(Integer.parseInt(principal.getTxtProductoExistenciaInventario().toString()));
-                inventario.setStockMinimo(Integer.parseInt(principal.getTxtProductoMinimoInventario().toString()));
+                aux = Float.parseFloat(principal.getTxtPrecioCompra().getText());
+                articulo.setPrecioCompra(aux);
+                existencia = Integer.parseInt(principal.getTxtCantidadProducto().getText());
+                inventario.setExistencia(existencia);
+                minimo = Integer.parseInt(principal.getTxtMinimoProducto().getText());
+                inventario.setStockMinimo(minimo);
+                idProveedor=principal.ObtenerIdProvedor(principal.getCbxProveedores().getSelectedItem().toString());
+                articulo.setCodigoProveedor(idProveedor);
+                //idAr=ObtenerIdArticulo(principal.getCbxArticulo().getSelectedItem().toString());
+           
+                //me conecto a la base de datos para pasar los objetos a la bd
+                 conectar();
+                  
+                   // Ingreso los datos a la BD
+                try{
+                  // datos de el articulo
+                    String sql;
+                    sql ="INSERT INTO articulo(descripcion, marca, no_Tamano,"
+                            + "precioCompra, codigoTipoArticulo, codigoProovedor)VALUES(?,?,?,?,?,?);";
+                    PreparedStatement ps = conecta.prepareCall(sql);
+                    ps.setString(1, articulo.getDescripcion());
+                    ps.setString(2, articulo.getMarca());
+                    ps.setString(3, articulo.getTalla());
+                    ps.setFloat(4, aux);
+                    ps.setInt(5, idAr);
+                    ps.setInt(6, articulo.getCodigoProveedor());
+                   
+                    int n = ps.executeUpdate();
+                    
+                    if(n>0){
+                        JOptionPane.showMessageDialog(null, "Datos Guardados");
+                    }
+                    // desconectamos la bd
+                   // desconectar();
+                    //limpiamos los datos Guardados
+                    
+                }catch(Exception ex){
+                        JOptionPane.showMessageDialog(null,"error"+ ex);
+                }
+                
+                
+                try{
+                   // conectar();
+                    inventario.setCodArticulo(principal.ObtenerIdADescripcion(articulo.getDescripcion()));
+                    
+                    String sql2="INSERT INTO inventario(codArticulo, existencia, stockMinimo)"
+                            + "VALUES(?,?,?);";
+                    PreparedStatement ps2 = conecta.prepareCall(sql2);
+                    ps2.setInt(1, inventario.getCodArticulo());
+                    ps2.setInt(2, inventario.getExistencia());
+                    ps2.setInt(3, inventario.getStockMinimo());
+                    
+                    int m=ps2.executeUpdate();
+                     if(m>0){
+                        JOptionPane.showMessageDialog(null, "Datos Guardados");
+                    }
+                    desconectar();
+                }catch(Exception ecx){
+                        JOptionPane.showMessageDialog(null,"error"+ ecx);
+                }
                 
             }
         });
@@ -205,20 +266,25 @@ public class Logica {
         principal.getTxtTelefonoEmpleado().setText("");
         principal.getTxtPassword().setText("");
     }
- 
+    public void limpiarProducto(){
+        principal.getTxtProductoDescripcion().setText("");
+        principal.getTxtMarcaArticulo().setText("");
+        principal.getTxtPrecioCompra().setText("");
+        principal.getTxtCantidadProducto().setText("");
+        principal.getTxtMinimoProducto().setText("");
+    }
     
     public int ObtenerIdArticulo(String articulo)
     {
         int id=0;
-        String base[] = {"","Bota","Sandalia","Zapato","Tenis","Tacon"};
-        
-        for(int i =0;i<6;i++){
+        String base[] = {"","Sweter","Chamarra","camisa","Pantalon","Vestido","Falda","Bota",
+            "Sandalia","Zapato","Tenis","Tacon"};        
+        for(int i =0;i<base.length;i++){
             if (articulo.matches(base[i])){
                 id=i;
-                break;
-            }
+                break;            }
             else{
-                id =0;
+                id =66;
             }
         }
         return (id);

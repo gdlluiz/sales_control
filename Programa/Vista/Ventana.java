@@ -38,6 +38,22 @@ public class Ventana extends javax.swing.JFrame {
         cargaProveedores();
     }
 
+    public JTextField getTxtProductoDescripcion() {
+        return txtProductoDescripcion;
+    }
+
+    public JComboBox getCbxArticulo() {
+        return cbxArticulo;
+    }
+
+    public void setCbxArticulo(JComboBox cbxArticulo) {
+        this.cbxArticulo = cbxArticulo;
+    }
+
+    public void setTxtProductoDescripcion(JTextField txtProductoDescripcion) {
+        this.txtProductoDescripcion = txtProductoDescripcion;
+    }
+
     public JComboBox getCbxProveedores() {
         return cbxProveedores;
     }
@@ -230,15 +246,7 @@ public class Ventana extends javax.swing.JFrame {
     public void setTxtNombreEmpleado(JTextField txtNombreEmpleado) {
         this.txtNombreEmpleado = txtNombreEmpleado;
     }
-
-    public JComboBox getCbxArticulo() {
-        return cbxArticulo;
-    }
-
-    public void setCbxArticulo(JComboBox cbxArticulo) {
-        this.cbxArticulo = cbxArticulo;
-    }
-
+    
     public JTextField getTxtNombreProveedor() {
         return txtNombreProveedor;
     }
@@ -389,8 +397,10 @@ public class Ventana extends javax.swing.JFrame {
         txtCantidadProducto = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         txtMinimoProducto = new javax.swing.JTextField();
-        cbxArticulo = new javax.swing.JComboBox();
         cbxProveedores = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        txtProductoDescripcion = new javax.swing.JTextField();
+        cbxArticulo = new javax.swing.JComboBox();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
@@ -497,7 +507,7 @@ public class Ventana extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrarEmpleado)
                     .addComponent(btnIngresarEmpleado))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Empleados", jPanel2);
@@ -576,7 +586,7 @@ public class Ventana extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrarProveedor)
                     .addComponent(btnIngresarProveedor))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Proveedores", jPanel3);
@@ -599,14 +609,16 @@ public class Ventana extends javax.swing.JFrame {
 
         jLabel22.setText("Stock Minimo");
 
+        jLabel1.setText("Descripcion");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
                             .addComponent(jLabel13)
@@ -614,51 +626,57 @@ public class Ventana extends javax.swing.JFrame {
                             .addComponent(jLabel15)
                             .addComponent(jLabel17)
                             .addComponent(jLabel22)
-                            .addComponent(jLabel16))
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel1))
                         .addGap(26, 26, 26)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbxTallaProducto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtMarcaArticulo, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                             .addComponent(txtPrecioCompra)
-                            .addComponent(cbxTallaProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtCantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtMinimoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbxArticulo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbxProveedores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(cbxProveedores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtProductoDescripcion)
+                            .addComponent(cbxArticulo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
+                        .addGap(46, 46, 46)
                         .addComponent(btnBorrarProducto)
-                        .addGap(84, 84, 84)
+                        .addGap(82, 82, 82)
                         .addComponent(btnIngresarProducto)))
                 .addContainerGap(331, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbxArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtProductoDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(0, 11, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(cbxArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(txtMarcaArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(cbxTallaProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(txtPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(txtCantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtMarcaArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel15)
+                            .addComponent(txtPrecioCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(txtCantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(cbxTallaProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(2, 2, 2)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
                     .addComponent(txtMinimoProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -666,11 +684,11 @@ public class Ventana extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(cbxProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrarProducto)
                     .addComponent(btnIngresarProducto))
-                .addGap(23, 23, 23))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Productos", jPanel4);
@@ -781,7 +799,7 @@ public class Ventana extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(rdoExistencia)
                             .addComponent(rdoMinimo))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrarBusqueda)
                     .addComponent(btnBuscarInventario))
@@ -849,7 +867,7 @@ public class Ventana extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEntradaArticulo)
                     .addComponent(btnSalidaArticulo))
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(157, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Entradas Salidas", jPanel7);
@@ -862,7 +880,7 @@ public class Ventana extends javax.swing.JFrame {
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 281, Short.MAX_VALUE)
+            .addGap(0, 321, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Reportes", jPanel8);
@@ -919,6 +937,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JComboBox cbxCiudadP;
     private javax.swing.JComboBox cbxProveedores;
     private javax.swing.JComboBox cbxTallaProducto;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -972,6 +991,7 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtPoductoIdInventario;
     private javax.swing.JTextField txtPrecioCompra;
+    private javax.swing.JTextField txtProductoDescripcion;
     private javax.swing.JTextField txtProductoExistenciaInventario;
     private javax.swing.JTextField txtProductoInventario;
     private javax.swing.JTextField txtProductoMinimoInventario;
@@ -1014,6 +1034,10 @@ public class Ventana extends javax.swing.JFrame {
             
             cbxTallaProducto.removeAllItems();
             cbxTallaProducto.addItem("");
+            cbxTallaProducto.addItem("S");
+            cbxTallaProducto.addItem("M");
+            cbxTallaProducto.addItem("L");
+            cbxTallaProducto.addItem("XL");
             cbxTallaProducto.addItem("2");
             cbxTallaProducto.addItem("3");
             cbxTallaProducto.addItem("3.5");
@@ -1031,6 +1055,12 @@ public class Ventana extends javax.swing.JFrame {
             
             cbxArticulo.removeAllItems();
             cbxArticulo.addItem("");
+            cbxArticulo.addItem("Sweter");
+            cbxArticulo.addItem("Chamarra");
+            cbxArticulo.addItem("camisa");
+            cbxArticulo.addItem("Pantalon");
+            cbxArticulo.addItem("Vestido");
+            cbxArticulo.addItem("Falda");            
             cbxArticulo.addItem("Bota");
             cbxArticulo.addItem("Sandalia");
             cbxArticulo.addItem("Zapato");
@@ -1040,51 +1070,86 @@ public class Ventana extends javax.swing.JFrame {
             
    }
    
-   public void cargaProveedores() {
-        
+    
+   
+   public void cargaProveedores() {   
         Conecta();
-        try {
-            
+        try {  
             String sql ="Select nombreComercial from proovedor;";
-           
             Statement st= conecta.createStatement();
             ResultSet rs=st.executeQuery(sql);
             cbxProveedores.removeAllItems();
-            while(rs.next()){
-                
+            while(rs.next()){    
                 cbxProveedores.addItem(rs.getString(1));
-            }
-               
+            }   
         } catch (SQLException ex) {
             Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
         }
    }
+   public void cargaTipoArticulo() {   
+        Conecta();
+        try {  
+            String sql ="Select tipo from tipo_articulo;";
+            Statement st= conecta.createStatement();
+            ResultSet rs=st.executeQuery(sql);
+            cbxArticulo.removeAllItems();
+            while(rs.next()){    
+                cbxArticulo.addItem(rs.getString(1));
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   }
+  
    
-   // aqui me quede
-   public void ObtenerIdProvedor(String Nombre) {
-        
+  
+   
+   public int ObtenerIdADescripcion(String descripcion) {
+        String id="";
+        Conecta();
+        try {            
+            String sql ="Select IdArticulo from articulo where descripcion = '"+descripcion+"';";           
+            Statement st= conecta.createStatement();
+            ResultSet rs=st.executeQuery(sql);            
+            while(rs.next()){
+                id= rs.getString(1);
+                break;         
+           }
+        } catch (SQLException ex) {
+            Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Integer.parseInt(id);
+   }
+   
+   
+   // Obtiene el Id del Proveeedor segun se encuentre en la tabla proovedor
+   public int ObtenerIdProvedor(String Nombre) {
+        String id="";
         Conecta();
         try {
             
-            String sql ="Select IdProovedor from proovedor where;";
+            String sql ="Select IdProovedor from proovedor where nombreComercial = '"+Nombre+"';";
            
             Statement st= conecta.createStatement();
             ResultSet rs=st.executeQuery(sql);
-            cbxProveedores.removeAllItems();
+            
             while(rs.next()){
                 
-                cbxProveedores.addItem(rs.getString(1));
+                id= rs.getString(1);
+                break;
+                        
             }
                
         } catch (SQLException ex) {
             Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return Integer.parseInt(id);
    }
    
    
    public void Conecta(){
        conecta = ConexionBD.getConexion();
    }
-
-    
+   
 }
