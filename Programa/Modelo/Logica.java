@@ -14,7 +14,13 @@ import java.awt.event.ActionListener;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Logica {
     Ventana principal = new Ventana();
@@ -247,7 +253,7 @@ public class Logica {
     }
     
     public void limpiarProveedor(){
-      principal.getTxtNombreEmpleado().setText("");
+      principal.getTxtNombreProveedor().setText("");
       principal.getTxtApellidoProveedor().setText("");
       principal.getTxtNombreCompania().setText("");
       principal.getTxtDireccionProveedor().setText("");
@@ -330,5 +336,43 @@ public class Logica {
     
     public void desconectar(){
         conecta=null;
+    }
+    // Metodo que llena la tabla de inventario
+    public void mostrarTabla(){
+        conectar();
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Articulo");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("Talla");
+        modelo.addColumn("Marca");
+        modelo.addColumn("Existencia");
+        modelo.addColumn("Minimo");
+        
+        principal.getTablaInventario().setModel(modelo);
+        // Consulta que une las tablas tpo Articulo, articulo e inventario
+        String tabla="SELECT tipo_articulo.tipo, articulo.descripcion, articulo.no_Tamano,"
+            + " articulo.marca, inventario.existencia, inventario.StockMinimo from Articulo\n" +
+            "JOIN tipo_articulo on articulo.codigoTipoArticulo=tipo_articulo.idTipoArticulo \n" +
+            "JOIN inventario on idArticulo = inventario.codArticulo;";
+        
+        String datos[] = new String[6];
+        try {
+            Statement st =conecta.createStatement();
+            ResultSet rs= st.executeQuery(tabla);
+            while(rs.next()){
+                datos[0]=rs.getString(1);
+                datos[1]=rs.getString(2);
+                datos[2]=rs.getString(3);
+                datos[3]=rs.getString(4);
+                datos[4]=rs.getString(5);
+                datos[5]=rs.getString(6);
+                modelo.addRow(datos);
+            }
+            principal.getTablaInventario().setModel(modelo);
+        } catch (SQLException ex) {
+            Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
     }
 }

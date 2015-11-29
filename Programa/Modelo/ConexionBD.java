@@ -18,7 +18,7 @@ public class ConexionBD {
         try{
             Class.forName("com.mysql.jdbc.Driver");	            
             con = DriverManager.getConnection(url, user, pass);
-            JOptionPane.showMessageDialog(null,"Conectado ");
+            //JOptionPane.showMessageDialog(null,"Conectado ");
         }catch(Exception e){
 	    JOptionPane.showMessageDialog(null,"Error De Conexion "+ e);
 	}

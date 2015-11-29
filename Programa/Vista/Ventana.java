@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 import javax.swing.JTextField;
 
@@ -36,6 +37,14 @@ public class Ventana extends javax.swing.JFrame {
         initComponents();
         cargarCbx();
         cargaProveedores();
+    }
+
+    public JTable getTablaInventario() {
+        return tablaInventario;
+    }
+
+    public void setTablaInventario(JTable tablaInventario) {
+        this.tablaInventario = tablaInventario;
     }
 
     public JTextField getTxtProductoDescripcion() {
@@ -263,14 +272,6 @@ public class Ventana extends javax.swing.JFrame {
         this.txtPassword = txtPassword;
     }
 
-    public JTextField getTxtPoductoIdInventario() {
-        return txtPoductoIdInventario;
-    }
-
-    public void setTxtPoductoIdInventario(JTextField txtPoductoIdInventario) {
-        this.txtPoductoIdInventario = txtPoductoIdInventario;
-    }
-
     public JTextField getTxtPrecioCompra() {
         return txtPrecioCompra;
     }
@@ -278,31 +279,7 @@ public class Ventana extends javax.swing.JFrame {
     public void setTxtPrecioCompra(JTextField txtPrecioCompra) {
         this.txtPrecioCompra = txtPrecioCompra;
     }
-
-    public JTextField getTxtProductoExistenciaInventario() {
-        return txtProductoExistenciaInventario;
-    }
-
-    public void setTxtProductoExistenciaInventario(JTextField txtProductoExistenciaInventario) {
-        this.txtProductoExistenciaInventario = txtProductoExistenciaInventario;
-    }
-
-    public JTextField getTxtProductoInventario() {
-        return txtProductoInventario;
-    }
-
-    public void setTxtProductoInventario(JTextField txtProductoInventario) {
-        this.txtProductoInventario = txtProductoInventario;
-    }
-
-    public JTextField getTxtProductoMinimoInventario() {
-        return txtProductoMinimoInventario;
-    }
-
-    public void setTxtProductoMinimoInventario(JTextField txtProductoMinimoInventario) {
-        this.txtProductoMinimoInventario = txtProductoMinimoInventario;
-    }
-
+  
     public JTextField getTxtTelefonoEmpleado() {
         return txtTelefonoEmpleado;
     }
@@ -402,21 +379,10 @@ public class Ventana extends javax.swing.JFrame {
         txtProductoDescripcion = new javax.swing.JTextField();
         cbxArticulo = new javax.swing.JComboBox();
         jPanel5 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        txtProductoMinimoInventario = new javax.swing.JTextField();
-        txtProductoExistenciaInventario = new javax.swing.JTextField();
-        txtProductoInventario = new javax.swing.JTextField();
-        txtPoductoIdInventario = new javax.swing.JTextField();
-        rdoId = new javax.swing.JRadioButton();
-        rdoExistencia = new javax.swing.JRadioButton();
-        rdoMinimo = new javax.swing.JRadioButton();
-        rdoProducto = new javax.swing.JRadioButton();
         btnBorrarBusqueda = new javax.swing.JButton();
         btnBuscarInventario = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaInventario = new javax.swing.JTable();
         jPanel7 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -477,7 +443,7 @@ public class Ventana extends javax.swing.JFrame {
                         .addComponent(btnBorrarEmpleado)
                         .addGap(38, 38, 38)
                         .addComponent(btnIngresarEmpleado)))
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addContainerGap(339, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -507,7 +473,7 @@ public class Ventana extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrarEmpleado)
                     .addComponent(btnIngresarEmpleado))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Empleados", jPanel2);
@@ -556,7 +522,7 @@ public class Ventana extends javax.swing.JFrame {
                         .addComponent(btnBorrarProveedor)
                         .addGap(87, 87, 87)
                         .addComponent(btnIngresarProveedor)))
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addContainerGap(320, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -586,7 +552,7 @@ public class Ventana extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBorrarProveedor)
                     .addComponent(btnIngresarProveedor))
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Proveedores", jPanel3);
@@ -643,12 +609,12 @@ public class Ventana extends javax.swing.JFrame {
                         .addComponent(btnBorrarProducto)
                         .addGap(82, 82, 82)
                         .addComponent(btnIngresarProducto)))
-                .addContainerGap(331, Short.MAX_VALUE))
+                .addContainerGap(401, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxArticulo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
@@ -693,117 +659,48 @@ public class Ventana extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Productos", jPanel4);
 
-        jPanel6.setBackground(new java.awt.Color(102, 102, 102));
-
-        jLabel23.setText("Id Producto");
-
-        jLabel24.setText("Producto");
-
-        jLabel25.setText("Existencia");
-
-        jLabel26.setText("Stock Minimo");
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 313, Short.MAX_VALUE)
-            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel6Layout.createSequentialGroup()
-                    .addGap(68, 68, 68)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel23)
-                        .addComponent(jLabel24)
-                        .addComponent(jLabel25)
-                        .addComponent(jLabel26))
-                    .addGap(28, 28, 28)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtPoductoIdInventario, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
-                        .addComponent(txtProductoInventario)
-                        .addComponent(txtProductoExistenciaInventario)
-                        .addComponent(txtProductoMinimoInventario))
-                    .addContainerGap(68, Short.MAX_VALUE)))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
-            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel6Layout.createSequentialGroup()
-                    .addGap(23, 23, 23)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel23)
-                        .addComponent(txtPoductoIdInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel24)
-                        .addComponent(txtProductoInventario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel25)
-                        .addComponent(txtProductoExistenciaInventario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(11, 11, 11)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel26)
-                        .addComponent(txtProductoMinimoInventario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(24, Short.MAX_VALUE)))
-        );
-
-        rdoId.setText("Id");
-
-        rdoExistencia.setText("Existencia");
-
-        rdoMinimo.setText("Stock Minimo");
-
-        rdoProducto.setText("Producto");
-
         btnBorrarBusqueda.setText("Reiniciar");
 
         btnBuscarInventario.setText("Buscar");
+
+        tablaInventario.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tablaInventario);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(160, 160, 160)
+                .addComponent(btnBorrarBusqueda)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 246, Short.MAX_VALUE)
+                .addComponent(btnBuscarInventario)
+                .addGap(174, 174, 174))
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(btnBorrarBusqueda)
-                        .addGap(89, 89, 89)
-                        .addComponent(btnBuscarInventario))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rdoExistencia)
-                            .addComponent(rdoProducto))
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rdoId)
-                            .addComponent(rdoMinimo))
-                        .addGap(46, 46, 46)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap(68, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rdoId)
-                            .addComponent(rdoProducto))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rdoExistencia)
-                            .addComponent(rdoMinimo))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBorrarBusqueda)
-                    .addComponent(btnBuscarInventario))
-                .addGap(57, 57, 57))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(btnBuscarInventario)
+                        .addGap(75, 75, 75))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(btnBorrarBusqueda)
+                        .addGap(64, 64, 64)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Inventario", jPanel5);
@@ -844,7 +741,7 @@ public class Ventana extends javax.swing.JFrame {
                         .addComponent(btnEntradaArticulo)
                         .addGap(68, 68, 68)
                         .addComponent(btnSalidaArticulo)))
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addContainerGap(330, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -867,7 +764,7 @@ public class Ventana extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEntradaArticulo)
                     .addComponent(btnSalidaArticulo))
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addContainerGap(150, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Entradas Salidas", jPanel7);
@@ -876,11 +773,11 @@ public class Ventana extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 648, Short.MAX_VALUE)
+            .addGap(0, 718, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 321, Short.MAX_VALUE)
+            .addGap(0, 314, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Reportes", jPanel8);
@@ -951,10 +848,6 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -967,14 +860,11 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JRadioButton rdoExistencia;
-    private javax.swing.JRadioButton rdoId;
-    private javax.swing.JRadioButton rdoMinimo;
-    private javax.swing.JRadioButton rdoProducto;
+    private javax.swing.JTable tablaInventario;
     private javax.swing.JTextField txtApellidoEmplado;
     private javax.swing.JTextField txtApellidoProveedor;
     private javax.swing.JTextField txtCantidadProducto;
@@ -989,12 +879,8 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombreEmpleado;
     private javax.swing.JTextField txtNombreProveedor;
     private javax.swing.JTextField txtPassword;
-    private javax.swing.JTextField txtPoductoIdInventario;
     private javax.swing.JTextField txtPrecioCompra;
     private javax.swing.JTextField txtProductoDescripcion;
-    private javax.swing.JTextField txtProductoExistenciaInventario;
-    private javax.swing.JTextField txtProductoInventario;
-    private javax.swing.JTextField txtProductoMinimoInventario;
     private javax.swing.JTextField txtTelefonoEmpleado;
     private javax.swing.JTextField txtTelefonoProveedor;
     // End of variables declaration//GEN-END:variables
