@@ -13,10 +13,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -33,7 +36,9 @@ public class Logica {
     InventarioVO inventario;
     
     public Logica() {
+        conectar();
         
+        // panel Empleado
         this.principal.getBtnIngresarEmpleado().addActionListener(new ActionListener(){
             
             @Override
@@ -52,7 +57,7 @@ public class Logica {
             
             
                 // Me conecto a la Base de datos
-               conectar();
+                conectar();
                
                //pasamos datos a la tabla Empleado
                 try{
@@ -77,7 +82,7 @@ public class Logica {
                     //limpiamos los datos Guardados
                     limpiarEmpleado();
                 }catch(Exception ecx){
-                        JOptionPane.showMessageDialog(null,"error"+ ecx);
+                        JOptionPane.showMessageDialog(null,"Todos los campos son requeridos!!");
                 }
             }         
         });    
@@ -90,6 +95,8 @@ public class Logica {
             }      
        });   
        
+       
+       // Panel Proveedor
        this.principal.getBtnIngresarProveedor().addActionListener(new ActionListener(){
             
             @Override
@@ -135,7 +142,7 @@ public class Logica {
                     //limpiamos los datos Guardados
                     limpiarProveedor();
                 }catch(Exception ex){
-                        JOptionPane.showMessageDialog(null,"error: "+ ex);
+                        JOptionPane.showMessageDialog(null," Todos los campos son requeridos ");
                 }
                 
             }
@@ -152,13 +159,14 @@ public class Logica {
         
         
         
-        // Botones Articulo
+        // Panel Articulo
         
        
         this.principal.getBtnIngresarProducto().addActionListener(new ActionListener(){
             
             @Override
             public void actionPerformed(ActionEvent e){  
+                conectar();
                 //Creo los Objetos Articulo, inventario y tipo de articulo
                 articulo = new ArticuloVO();
                 tipoArticulo = new TipoArticuloVO();
@@ -183,11 +191,8 @@ public class Logica {
                 inventario.setStockMinimo(minimo);
                 idProveedor=principal.ObtenerIdProvedor(principal.getCbxProveedores().getSelectedItem().toString());
                 articulo.setCodigoProveedor(idProveedor);
-                //idAr=ObtenerIdArticulo(principal.getCbxArticulo().getSelectedItem().toString());
-           
-                //me conecto a la base de datos para pasar los objetos a la bd
-                 conectar();
-                  
+              
+                 
                    // Ingreso los datos a la BD
                 try{
                   // datos de el articulo
@@ -202,38 +207,31 @@ public class Logica {
                     ps.setInt(5, idAr);
                     ps.setInt(6, articulo.getCodigoProveedor());
                    
-                    int n = ps.executeUpdate();
+                    ps.executeUpdate();
                     
-                    if(n>0){
-                        JOptionPane.showMessageDialog(null, "Datos Guardados");
-                    }
-                    // desconectamos la bd
-                   // desconectar();
-                    //limpiamos los datos Guardados
+              
+                    inventario.setCodArticulo(principal.ObtenerIdADescripcion(articulo.getDescripcion(), tipoArticulo.getTipo()));
                     
-                }catch(Exception ex){
-                        JOptionPane.showMessageDialog(null,"error"+ ex);
-                }
-                
-                
-                try{
-                   // conectar();
-                    inventario.setCodArticulo(principal.ObtenerIdADescripcion(articulo.getDescripcion()));
-                    
-                    String sql2="INSERT INTO inventario(codArticulo, existencia, stockMinimo)"
-                            + "VALUES(?,?,?);";
+                    String sql2="INSERT INTO inventario(existencia, stockMinimo)"
+                            + "VALUES(?,?);";
                     PreparedStatement ps2 = conecta.prepareCall(sql2);
-                    ps2.setInt(1, inventario.getCodArticulo());
-                    ps2.setInt(2, inventario.getExistencia());
-                    ps2.setInt(3, inventario.getStockMinimo());
-                    
+                   
+                    ps2.setInt(1, inventario.getExistencia());
+                    ps2.setInt(2, inventario.getStockMinimo());
+                                        
                     int m=ps2.executeUpdate();
+                    limpiarProducto();
                      if(m>0){
                         JOptionPane.showMessageDialog(null, "Datos Guardados");
+                        conectar();
+                        mostrarTabla();
+                        
+                        desconectar();
+                       // conectar();
                     }
-                    desconectar();
+                   
                 }catch(Exception ecx){
-                        JOptionPane.showMessageDialog(null,"error"+ ecx);
+                        JOptionPane.showMessageDialog(null," Todos los campos son requeridos ");
                 }
                 
             }
@@ -243,15 +241,108 @@ public class Logica {
             
             @Override
             public void actionPerformed(ActionEvent e){  
-                //Creo el Objeto Proveedor
                 
+                 limpiarProducto();
             }
         });
         
+        this.principal.getBtnBuscarConsulta().addActionListener(new ActionListener(){
+            
+            @Override
+            public void actionPerformed(ActionEvent e){ 
+                conectar();
+               String articulo="";
+               articulo = principal.getCbxBuscar().getSelectedItem().toString();
+               ObtenerArticuloBuscado(articulo);
+               
+            }   
+        });    
+       
         
         
+        // Panel Movimientos
+        
+        
+        this.principal.getBtnEntradaArticulo().addActionListener(new ActionListener(){
+            
+            @Override
+            public void actionPerformed(ActionEvent e){ 
+                conectar();
+            entradasSalidas = new Entradas_SalidasVO();
+            String cantidad, idProducto, empleado;
+                       
+            cantidad= (principal.getTxtESCantidad().getText());
+            idProducto= (principal.getTxtESIdProducto().getText());
+            empleado= (principal.getTxtESIdEmpleado().getText());
+            
+            entradasSalidas.setCantidad(Integer.parseInt(cantidad));
+            entradasSalidas.setCodUsuario(Integer.parseInt(empleado));
+            entradasSalidas.setCodArticulo(Integer.parseInt(idProducto));
+            cargarEntrada();
+            conectar();
+            mostrarTabla();
+            mostrarTabla2();
+            desconectar();
+            limpiarES();
+            }   
+        });   
+        
+        this.principal.getBtnSalidaArticulo().addActionListener(new ActionListener(){
+            
+            @Override
+            public void actionPerformed(ActionEvent e){  
+             conectar();
+            entradasSalidas = new Entradas_SalidasVO();
+            String cantidad, idProducto, empleado ;
+            int stock, min, evaluar;
+            
+            cantidad= (principal.getTxtESCantidad().getText());
+            idProducto= (principal.getTxtESIdProducto().getText());
+            empleado= (principal.getTxtESIdEmpleado().getText());
+            evaluar=Integer.parseInt(cantidad);
+            entradasSalidas.setCantidad(Integer.parseInt(cantidad));
+            entradasSalidas.setCodUsuario(Integer.parseInt(empleado));
+            entradasSalidas.setCodArticulo(Integer.parseInt(idProducto));
+    
+            stock = obtenerExistencia(entradasSalidas.getCodArticulo());
+            min = obtenerMinimo(entradasSalidas.getCodArticulo());
+            if(evaluar > stock){
+                JOptionPane.showMessageDialog(null, "No hay articulos suficientes");
+            }
+            else if((stock-evaluar)>min){
+                cargarSalida();
+                conectar();
+                mostrarTabla();
+                mostrarTabla2();
+                desconectar();
+            }
+            else if((stock-evaluar)<= min && (stock-evaluar>= 0)){
+                JOptionPane.showMessageDialog(null, "Senecesitan surtir mas productos");
+                cargarSalida();
+                conectar();
+                mostrarTabla();
+                mostrarTabla2();
+                desconectar();
+            }
+            else if((stock)== 0){
+               
+                JOptionPane.showMessageDialog(null, "producto Agotado");
+                
+            }
+            else{
+                  JOptionPane.showMessageDialog(null,"Ingresa datos correctos");
+            }
+            
+            limpiarES();
+            }   
+        });    
     }
     
+    
+    
+    // Metodos
+    
+    //Metodo que limpia campos 
     public void limpiarProveedor(){
       principal.getTxtNombreProveedor().setText("");
       principal.getTxtApellidoProveedor().setText("");
@@ -260,10 +351,14 @@ public class Logica {
       principal.getTxtTelefonoProveedor().setText("");
       principal.cargarCbx();
     }
-       
-           
-   
-    //Metodo que limpia campos 
+     
+    
+    public void limpiarES()
+    {
+        principal.getTxtESCantidad().setText("");
+        principal.getTxtESIdEmpleado().setText("");
+        principal.getTxtESIdProducto().setText("");
+    }
     public void limpiarEmpleado(){
         principal.getTxtNombreEmpleado().setText("");
         principal.getTxtApellidoEmplado().setText("");
@@ -278,7 +373,12 @@ public class Logica {
         principal.getTxtPrecioCompra().setText("");
         principal.getTxtCantidadProducto().setText("");
         principal.getTxtMinimoProducto().setText("");
+        principal.cargarCbx();
+        principal.getCbxProveedores().setSelectedItem("");
     }
+    
+    
+    // obtienen ID
     
     public int ObtenerIdArticulo(String articulo)
     {
@@ -296,6 +396,47 @@ public class Logica {
         return (id);
     }
     
+    
+    //Tablas
+     public void ObtenerArticuloBuscado(String articulo)
+    {
+       DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("id");
+        modelo.addColumn("Articulo");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("Talla");
+        modelo.addColumn("Marca");
+        modelo.addColumn("Existencia");
+        //modelo.addColumn("Minimo");
+        
+        principal.getTablaConsultas().setModel(modelo);
+        
+        String consulta="SELECT articulo.idArticulo,tipo_articulo.tipo, articulo.descripcion, articulo.no_Tamano,"
+            + " articulo.marca, inventario.existencia from Articulo\n" +
+            "JOIN tipo_articulo on articulo.codigoTipoArticulo=tipo_articulo.idTipoArticulo \n" +
+            "JOIN inventario on idArticulo = inventario.codArticulo  WHERE tipo_articulo.tipo='"+articulo+"'"
+            + "ORDER BY articulo.idArticulo ASC;";  
+        String datos[] = new String[6];
+        try {
+            Statement st =conecta.createStatement();
+            ResultSet rs= st.executeQuery(consulta);
+            while(rs.next()){
+                datos[0]=rs.getString(1);
+                datos[1]=rs.getString(2);
+                datos[2]=rs.getString(3);
+                datos[3]=rs.getString(4);
+                datos[4]=rs.getString(5);
+                datos[5]=rs.getString(6);
+                
+                modelo.addRow(datos);
+            }
+            principal.getTablaConsultas().setModel(modelo);
+        } catch (SQLException ex) {
+            Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+       
+    }
     
 	 // Obtener el Indice de la ciudad
     public String obtenerIndex(String ciudad){
@@ -339,8 +480,9 @@ public class Logica {
     }
     // Metodo que llena la tabla de inventario
     public void mostrarTabla(){
-        conectar();
+       // conectar();
         DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("id");
         modelo.addColumn("Articulo");
         modelo.addColumn("Descripcion");
         modelo.addColumn("Talla");
@@ -350,12 +492,12 @@ public class Logica {
         
         principal.getTablaInventario().setModel(modelo);
         // Consulta que une las tablas tpo Articulo, articulo e inventario
-        String tabla="SELECT tipo_articulo.tipo, articulo.descripcion, articulo.no_Tamano,"
+        String tabla="SELECT articulo.idArticulo,tipo_articulo.tipo, articulo.descripcion, articulo.no_Tamano,"
             + " articulo.marca, inventario.existencia, inventario.StockMinimo from Articulo\n" +
             "JOIN tipo_articulo on articulo.codigoTipoArticulo=tipo_articulo.idTipoArticulo \n" +
-            "JOIN inventario on idArticulo = inventario.codArticulo;";
+            "JOIN inventario on idArticulo = inventario.codArticulo ORDER BY articulo.idArticulo ASC ;";
         
-        String datos[] = new String[6];
+        String datos[] = new String[7];
         try {
             Statement st =conecta.createStatement();
             ResultSet rs= st.executeQuery(tabla);
@@ -366,13 +508,124 @@ public class Logica {
                 datos[3]=rs.getString(4);
                 datos[4]=rs.getString(5);
                 datos[5]=rs.getString(6);
+                datos[6]=rs.getString(7);
                 modelo.addRow(datos);
             }
             principal.getTablaInventario().setModel(modelo);
         } catch (SQLException ex) {
             Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
+    
+    
+    public int obtenerExistencia(int articulo){
+            String cantidad="";
+            String consulta="select  existencia from inventario where codArticulo ='"+articulo+"';";
+            try {
+                Statement st =conecta.createStatement();
+                ResultSet rs= st.executeQuery(consulta);
+                while(rs.next()){
+                 
+                    cantidad =rs.getString(1);
+                }
+            }catch(SQLException ex){
+                
+            }
+            return Integer.parseInt(cantidad);
         }
+    public int obtenerMinimo(int articulo){
+        String cantidad="";
+        String consulta="select stockMinimo from inventario where codArticulo ='"+articulo+"';";
+        try {
+            Statement st =conecta.createStatement();
+            ResultSet rs= st.executeQuery(consulta);
+            while(rs.next()){           
+                cantidad =rs.getString(1);
+            }
+        }catch(SQLException ex){  
+            
+            }
+            return Integer.parseInt(cantidad);
+        }
+     
+     public void cargarSalida (){
+         String sql="INSERT INTO entradas_salidas (codArticulo, mov_entrada_salida, "
+                    + "cantidad, codUsuario) VALUES(?,?,?,?)";
+                   
+                    PreparedStatement ps;
+                try {
+                        ps = conecta.prepareCall(sql);
+                    
+                        ps.setInt(1,entradasSalidas.getCodArticulo() );
+                        ps.setInt(2, 1);
+                        ps.setInt(3, entradasSalidas.getCantidad());
+                        ps.setInt(4, entradasSalidas.getCodUsuario());                             
+                        int m=ps.executeUpdate();
+                        if(m>1){
+                            JOptionPane.showMessageDialog(null, "Inventario Actualizado");
+                            desconectar();
+                        }
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Todos los campos son requeridos");
+                }
+     }
+     
+     public void cargarEntrada(){
+        String sql="INSERT INTO entradas_salidas (codArticulo, mov_entrada_salida, "
+                    + "cantidad, codUsuario) VALUES(?,?,?,?)";
+            
+        PreparedStatement ps;
+        try {
+            ps = conecta.prepareCall(sql);
+                   
+            ps.setInt(1,entradasSalidas.getCodArticulo() );
+            ps.setInt(2, 0);
+            ps.setInt(3, entradasSalidas.getCantidad());
+            ps.setInt(4, entradasSalidas.getCodUsuario());                             
+            int m=ps.executeUpdate();
+            if(m>1){
+                JOptionPane.showMessageDialog(null, "Inventario Actualizado");
+                desconectar();
+            }
+        }catch (SQLException ex) {
+          JOptionPane.showMessageDialog(null, "Todos los campos son requeridos");
+        }
+    }
+    public void mostrarTabla2(){
+       // conectar();
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("id");
+        modelo.addColumn("Articulo");
+        modelo.addColumn("Descripcion");
+        modelo.addColumn("Talla");
+        modelo.addColumn("Marca");
+        modelo.addColumn("Existencia");
+        modelo.addColumn("Minimo");
         
-       
+        principal.getTablaMovimientos().setModel(modelo);
+        // Consulta que une las tablas tpo Articulo, articulo e inventario
+        String tabla="SELECT articulo.idArticulo,tipo_articulo.tipo, articulo.descripcion, articulo.no_Tamano,"
+            + " articulo.marca, inventario.existencia, inventario.StockMinimo from Articulo\n" +
+            "JOIN tipo_articulo on articulo.codigoTipoArticulo=tipo_articulo.idTipoArticulo \n" +
+            "JOIN inventario on idArticulo = inventario.codArticulo ORDER BY articulo.idArticulo ASC ;";
+        
+        String datos[] = new String[7];
+        try {
+            Statement st =conecta.createStatement();
+            ResultSet rs= st.executeQuery(tabla);
+            while(rs.next()){
+                datos[0]=rs.getString(1);
+                datos[1]=rs.getString(2);
+                datos[2]=rs.getString(3);
+                datos[3]=rs.getString(4);
+                datos[4]=rs.getString(5);
+                datos[5]=rs.getString(6);
+                datos[6]=rs.getString(7);
+                modelo.addRow(datos);
+            }
+            principal.getTablaMovimientos().setModel(modelo);
+        } catch (SQLException ex) {
+            Logger.getLogger(Logica.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     }
 }

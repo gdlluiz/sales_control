@@ -18,7 +18,9 @@ public class Principal {
 		
             // Mando a llamar los metodos
             miLogica.manejaVista();
+            //miLogica.conectar();
             miLogica.mostrarTabla();
+            miLogica.mostrarTabla2();
            // ventana.cargaProveedores();
 		
 		
